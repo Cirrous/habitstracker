@@ -1,10 +1,17 @@
   import 'package:flutter/material.dart';
-  import 'habits_view.dart';
+import 'package:provider/provider.dart';
+  import 'habits_model.dart';
+import 'habits_view.dart';
   import 'game_view.dart';
   import 'todo_view.dart';
 
   void main() {
-    runApp(MyApp());
+    runApp(
+      ChangeNotifierProvider(
+        create: (context) => HabitsModel(),
+        child: const MyApp(),
+      ),
+    );
   }
 
   class MyApp extends StatefulWidget {
@@ -34,7 +41,7 @@
     @override
     Widget build(BuildContext context) {
       return MaterialApp(
-        title: 'My App',
+        title: 'Habit Tracker',
         theme: ThemeData(
           brightness: Brightness.dark,
           primarySwatch: Colors.blue,
