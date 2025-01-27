@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'add_habit_view.dart';
 
 class HabitsView extends StatefulWidget {
   const HabitsView({super.key});
@@ -8,7 +9,7 @@ class HabitsView extends StatefulWidget {
 }
 
 class _HabitsViewState extends State<HabitsView> {
-  List<String> habits = []; // Liste der Habits
+  List<Map<String, dynamic>> habits = [];
 
   @override
   Widget build(BuildContext context) {
@@ -17,52 +18,24 @@ class _HabitsViewState extends State<HabitsView> {
         itemCount: habits.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(habits[index]),
+            title: Text(habits[index]['taskTitle']),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showAddHabitDialog(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddHabitView(
+                onAddHabit: (newHabit) => setState(() => habits.add(newHabit))
+              ),
+            ),
+          );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
-
-  Future<void> _showAddHabitDialog(BuildContext context) async {
-    String newHabit = '';
-
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Neue Gewohnheit hinzufügen'),
-          content: TextField(
-            onChanged: (value) {
-              newHabit = value;
-            },
-            decoration: InputDecoration(hintText: 'Gewohnheit eingeben'),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Abbrechen'),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  habits.add(newHabit);
-                });
-                Navigator.of(context).pop();
-              },
-              child: Text('Hinzufügen'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
+
