@@ -45,13 +45,13 @@
             backgroundColor: Colors.black54,
           ),
           body: Center(
-            child: _viewOptions.elementAt(_selectedIndex), // Die ausgewählte View anzeigen
+            child: _viewOptions.elementAt(_selectedIndex),
           ),
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Colors.black,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.add_circle_outline_rounded),
+                icon: Icon(Icons.my_library_add_outlined),
                 label: 'Habits',
               ),
               BottomNavigationBarItem(
